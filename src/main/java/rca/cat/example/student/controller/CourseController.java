@@ -7,11 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import rca.cat.example.student.domain.Course;
-import rca.cat.example.student.domain.Mark;
-import rca.cat.example.student.domain.Student;
 import rca.cat.example.student.repository.CourseRepository;
-import rca.cat.example.student.repository.MarkRepository;
-import rca.cat.example.student.repository.StudentRepository;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -21,51 +18,49 @@ import java.util.Optional;
 public class CourseController {
 
     @Autowired
-    private CourseRepository markRepository;
+    private CourseRepository courseRepository;
 
-    //Add student
-    @PostMapping("/mark")
-    public Course addCourse(@RequestBody Course mark){
-        return markRepository.save(mark);
+    //Add course
+    @PostMapping("/course")
+    public Course addCourse(@RequestBody Course course){
+        return courseRepository.save(course);
     }
 
-    //Get mark by Id
-    @GetMapping("/mark/{id}")
+    //Get course by Id
+    @GetMapping("/course/{id}")
     public Course getCourseById(@PathVariable Long id){
-        return markRepository.findById(id)
+        return courseRepository.findById(id)
                 .orElseThrow(()->new HttpClientErrorException(HttpStatus.NOT_FOUND));
     }
 
-    //Get all marks
-    @GetMapping("/marks")
+    //Get all courses
+    @GetMapping("/courses")
     public List<Course> getALlCourse(){
-        return markRepository.findAll();
+        return courseRepository.findAll();
     }
 
-    //Update mark by Id
-    @PutMapping("/student/{id}")
-    public ResponseEntity<Course> updateCourseById(@PathVariable Long id, @RequestBody Course mark){
-        Optional<Mark> CourseData = markRepository.findById(id);
+    //Update course by Id
+    @PutMapping("/course/{id}")
+    public ResponseEntity<Course> updateCourseById(@PathVariable Long id, @RequestBody Course course){
+        Optional<Course> CourseData = courseRepository.findById(id);
 
         if(CourseData.isPresent()){
-            Course _mark = CourseData.get();
-            _mark.setId(mark.getId());
-            _mark.setStudent(mark.getStudent());
-            _mark.setCourse(mark.getCourse());
-            _mark.setScore(mark.getScore());
-            _mark.setMaximum(mark.getMaximum());
+            Course _course = CourseData.get();
+            _course.setId(course.getId());
+            _course.setName(course.getName());
+            _course.setCourseCode(course.getCourseCode());
 
-            return new ResponseEntity<>(markRepository.save(_mark),HttpStatus.OK);
+            return new ResponseEntity<>(courseRepository.save(_course),HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    //Delete student by ID
-    @DeleteMapping("/student/{id}")
+    //Delete course by ID
+    @DeleteMapping("/course/{id}")
     public void deleteCourseById(@PathVariable Long id){
-        markRepository.deleteById(id);
+        courseRepository.deleteById(id);
     }
 
 
