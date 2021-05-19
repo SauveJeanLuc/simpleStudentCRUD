@@ -35,6 +35,7 @@ public class Mark {
 
     //Properties
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     @OneToOne

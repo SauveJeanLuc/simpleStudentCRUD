@@ -2,9 +2,7 @@ package rca.cat.example.student.domain;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -32,6 +30,7 @@ public class Course {
 
     //Properties
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private String name;
