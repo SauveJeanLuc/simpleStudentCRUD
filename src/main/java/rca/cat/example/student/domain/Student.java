@@ -13,21 +13,26 @@ public class Student {
     public Student() {
     }
 
+
     //All-args-id constructor
 
-
-    public Student(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Student(String names, String email, String gender, Integer age) {
+        this.names = names;
+        this.email = email;
+        this.gender = gender;
+        this.age = age;
     }
+
 
     //All args constructor
 
 
-    public Student(Long id, String firstName, String lastName) {
+    public Student(Long id, String names, String email, String gender, Integer age) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.names = names;
+        this.email = email;
+        this.gender = gender;
+        this.age = age;
     }
 
     // Properties
@@ -35,11 +40,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String firstName;
+    private String names;
     @NotNull
-    private String lastName;
+    private String email;
+    @NotNull
+    private String gender;
+    @NotNull
+    private Integer age;
 
     //Getters and Setters
+
 
     public Long getId() {
         return id;
@@ -49,19 +59,35 @@ public class Student {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNames() {
+        return names;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setNames(String names) {
+        this.names = names;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

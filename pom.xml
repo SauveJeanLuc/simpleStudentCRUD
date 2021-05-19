@@ -11,7 +11,7 @@
     <groupId>rca.cat.example</groupId>
     <artifactId>student</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>student</name>
     <description>Student Management sytem in spring boot</description>
     <properties>
