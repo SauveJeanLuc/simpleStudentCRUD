@@ -2,10 +2,7 @@ package rca.cat.example.student.domain;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -40,10 +37,10 @@ public class Mark {
     @Id
     private Long id;
     @NotNull
-    @ManyToOne
+    @OneToOne
     private Student student;
     @NotNull
-    @ManyToOne
+    @OneToOne
     private Course course;
     @NotNull
     private Float score;

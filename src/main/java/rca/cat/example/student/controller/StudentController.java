@@ -46,8 +46,10 @@ public class StudentController {
         if(StudentData.isPresent()){
             Student _student = StudentData.get();
             _student.setId(student.getId());
-            _student.setFirstName(student.getFirstName());
-            _student.setLastName(student.getLastName());
+            _student.setNames(student.getNames());
+            _student.setAge(student.getAge());
+            _student.setEmail(student.getEmail());
+            _student.setGender(student.getGender());
 
             return new ResponseEntity<>(studentRepository.save(_student),HttpStatus.OK);
         }
