@@ -1,15 +1,18 @@
 package rca.cat.example.student.controller;
 
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import rca.cat.example.student.domain.Mark;
+import rca.cat.example.student.dto.MarkDTO;
 import rca.cat.example.student.repository.MarkRepository;
 
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +23,13 @@ public class MarkController {
     @Autowired
     private MarkRepository markRepository;
 
+    private ModelMapper modelMapper = new ModelMapper();
+
     //Add mark
     @PostMapping("/mark")
-    public Mark addMark(@RequestBody Mark mark){
-        return markRepository.save(mark);
+    public MarkDTO addMark(@RequestBody MarkDTO markDTO) throws ParseException {
+        Mark mark = convertToEntity(markDTO);
+        return convertToDto(markRepository.save(mark));
     }
 
     //Get mark by Id
@@ -65,7 +71,19 @@ public class MarkController {
         markRepository.deleteById(id);
     }
 
+    private MarkDTO convertToDto(Mark mark) {
+        MarkDTO markDto = modelMapper.map(mark, MarkDTO.class);
+        markDto.setStudentId(mark.getStudent().getId());
+        markDto.setCourseId(mark.getCourse().getId());
+        return markDto;
+    }
 
+    private Mark convertToEntity(MarkDTO markDTO) throws ParseException {
+        Mark mark = modelMapper.map(markDTO, Mark.class);
+        mark.setId(markDTO.getId());
+
+        return mark;
+    }
 
 
 }
